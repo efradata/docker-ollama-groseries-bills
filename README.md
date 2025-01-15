@@ -54,7 +54,7 @@ docker-ollama-groceries-bills/
 │   ├── training.log
 │   └── inference.log
 └── requirements.txt           # Project dependencies
-
+```
 
 # Installation and Setup
 
@@ -71,16 +71,18 @@ Follow these steps to set up and run the project:
 ```bash
 git clone https://github.com/your-username/docker-ollama-groceries-bills.git
 cd docker-ollama-groceries-bills
-
+```
 
 ## 3. Build the Docker Image
 
 ```bash
 docker build -t groceries-bills-chatbot .
+```
 
 ## 4. Run the Docker Container
 ```bash
 docker run -p 8080:8080 groceries-bills-chatbot
+```
 
 # Usage
 ## 1. Data Preprocessing
@@ -88,19 +90,21 @@ Place your shopping receipt images in the data/raw/ folder and run the preproces
 
 ```bash
 bash scripts/preprocess_data.sh
+```
 
 ## 2. Model Training
 Launch the training process from the src/training/ folder:
 
 ```bash
 python src/training/train.py
+```
 
 ## 3. Chatbot Inference
 Start the chatbot to interact with your expense data:
 
 ```bash
 python src/inference.py
-
+```
 
 # Contact
 - Author: [Efrain](https://github.com/your-username)
