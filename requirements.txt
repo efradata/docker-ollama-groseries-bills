@@ -1,0 +1,5 @@
+ollama
+flask
+streamlit
+jupyter
+ipykernel
