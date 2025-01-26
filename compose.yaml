@@ -7,14 +7,19 @@ services:
       - "11434:11434"
     volumes:
       - ollama_models:/root/.ollama
+    runtime: nvidia  # Ensures the NVIDIA runtime is used for this service
     deploy:
+      # resources:
+      #   reservations:
+      #     devices:
+      #       - driver: nvidia
+      #         count: 1 # 1 gpu
+      #         capabilities: [gpu]
       resources:
         reservations:
           devices:
-            - driver: nvidia
-              count: 1 # 1 gpu
-              capabilities: [gpu]
-
+            - capabilities: ["nvidia-compute"]
+              driver: nvidia
   app:
     build: .
     ports:
