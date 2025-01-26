@@ -1,35 +1,30 @@
-# Usa la imagen oficial de Ollama como base
-FROM ollama/ollama:latest
+FROM python:3.10-slim
 
-# Pre-pull the models you want to use
-#RUN ollama pull llama3.2-vision
+# Instalar dependencias mínimas
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
-
-# Instala Python y pip si no están preinstalados
-RUN apt-get update && apt-get install -y python3 python3-pip
-
-# Copia archivos
-COPY requirements.txt .           
-COPY notebooks/ ./notebooks       
+COPY requirements.txt .
+COPY notebooks/ ./notebooks
 COPY data/ ./data
-COPY README.md .                  
+COPY app.py .
 
-# Instala las dependencias necesarias
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Configura el volumen para los datos de Ollama
-VOLUME ["/root/.ollama"]
+# Solo Jupyter
+EXPOSE 8888  
 
-# # Expone el puerto que utiliza Ollama
-# EXPOSE 11434
-
-
-# para futuros 
-# CMD [ "serve", "app.py"]
+# CMD ["sh", "-c", "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root & streamlit run app.py"]
+CMD ["sh", "-c", "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root"]
+            
 
 # docker build -t ollama-bills-agent .
+
+# docker run --gpus all -p 11434:11434 tu-imagen
 # docker run -d \
 #   --gpus=all \                              # Habilita el acceso a las GPUs NVIDIA
 #   -v "$(pwd):/app" \                        # Monta el directorio local en el contenedor
@@ -41,3 +36,4 @@ VOLUME ["/root/.ollama"]
 
 
 # docker run -d --gpus=all -v "$(pwd):/app" -v ollama:/root/.ollama -p 11434:11434 -p 8888:8888 --name container-ollama ollama-bills-agent
+# --runtime=nvidia

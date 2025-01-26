@@ -3,3 +3,5 @@ flask
 streamlit
 jupyter
 ipykernel
+fastapi
+Pillow
