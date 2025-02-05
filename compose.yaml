@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   ollama:
-    image: ollama/ollama:latest
+    image: ollama/ollama:latest 
+    container_name: ollama_service  # Custom name for the Ollama container
     ports:
       - "11434:11434"
     volumes:
@@ -15,13 +16,10 @@ services:
             - driver: nvidia
               count: 1 # 1 gpu
               capabilities: [gpu]
-      # resources:
-      #   reservations:
-      #     devices:
-      #       - capabilities: ["nvidia-compute"]
-      #         driver: nvidia
   app:
     build: .
+    image: app_image:latest  # Custom image name
+    container_name: app_service  # Custom image name
     ports:
       - "8501:8501"  # Streamlit
       - "8888:8888"  # Jupyter
