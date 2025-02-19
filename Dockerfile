@@ -20,7 +20,6 @@ EXPOSE 8888
 
 # CMD ["sh", "-c", "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root & streamlit run app.py"]
 CMD ["sh", "-c", "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root"]
-            
 
 # docker build -t ollama-bills-agent .
 

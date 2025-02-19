@@ -25,6 +25,7 @@ services:
       - "8888:8888"  # Jupyter
     environment:
       - OLLAMA_HOST=ollama:11434
+      - LLAMA_PARSE_TOKEN=${LLAMA_PARSE_TOKEN}
     depends_on:
       - ollama
 
